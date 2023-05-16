@@ -2,8 +2,12 @@ MainWidget:
 
 <Button>:
     font_size:dp(30)
+    font_name: 'lcd.ttf'
 
 <MainWidget>:
+    name: 'simple'
+    display: display
+
     GridLayout:
         rows: 2
         cols: 1
@@ -13,6 +17,7 @@ MainWidget:
 
         Label:
             id: display
+            size_hint_y: 0.25
             canvas.before:
                 Color:
                     rgba: 0.2, 0.2, 0.2, 1
@@ -20,15 +25,19 @@ MainWidget:
                     size: display.size
                     pos: display.pos
             text:""
-            font_size:dp(60)
-            size_hint_y: 0.2
-
+            font_size:dp(45)
+            font_name: 'lcd.ttf'
+            halign: 'right'
+            valign: 'middle'
+            text_size: self.width*0.9, self.height
+            shorten: True
+            shorten_from: 'left'
+                
         GridLayout:
             rows: 4
             cols: 4
-            size_hint_y: 0.8
+            size_hint_y: 0.75
             spacing: dp(3)
-            font_size: dp(30)
 
             Button:
                 text: '7'
@@ -41,7 +50,7 @@ MainWidget:
                 on_press: display.text += self.text
             Button:
                 text: '*'
-                on_press: display.text += self.text
+                on_press: root.handle_operators(self.text)
             
             Button:
                 text: '4'
@@ -54,7 +63,7 @@ MainWidget:
                 on_press: display.text += self.text
             Button:
                 text: '/'
-                on_press: display.text += self.text
+                on_press: root.handle_operators(self.text)
             
             Button:
                 text: '1'
@@ -67,17 +76,19 @@ MainWidget:
                 on_press: display.text += self.text
             Button:
                 text: '+'
-                on_press: display.text += self.text
+                on_press: root.handle_operators(self.text)
 
             Button:
                 text: 'AC'
+                background_color: 1, 0.4, 0.4, 1
                 on_press: display.text = ''
             Button:
                 text: '0'
                 on_press: display.text += self.text
             Button:
                 text: '='
+                background_color: 0.4, 0.4, 1, 1
                 on_press: display.text = root.evaluate_expression(display.text)
             Button:
                 text: '-'
-                on_press: display.text += self.text
+                on_press: root.handle_operators(self.text)
