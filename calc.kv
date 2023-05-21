@@ -8,10 +8,15 @@ ScreenManager:
     size_hint_y: 0.25
     canvas.before:
         Color:
-            rgba: 0.2, 0.2, 0.2, 1
+            rgba: (0.16, 0.16, 0.16, 1)
         Rectangle:
             size: display.size
             pos: display.pos
+        #Color:
+        #    rgba: (1, 1, 1, 1)
+        #Line:
+        #    width: 1
+        #    rectangle: (self.pos[0], self.pos[1], self.width, self.height)
     text:""
     font_size:dp(45)
     #font_name: 'lcd.ttf'
@@ -30,7 +35,7 @@ ScreenManager:
     background_color: 0, 0, 0, 0
     canvas.before:
         Color:
-            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (1, 0.5, 1, 1)
+            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (0.4, 0.4, 0.4, 1)
         RoundedRectangle:
             pos: self.pos
             size: self.size
@@ -38,9 +43,18 @@ ScreenManager:
 
 
 <RoundedNumberButton@RoundedButton>:
+    font_size:dp(30)
+    #font_name: 'lcd.ttf'
+    color: 1, 1, 1, 1
+    background_normal: ''
+    background_color: 0, 0, 0, 0
     canvas.before:
         Color:
-            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (1, 0.5, 1, 1)
+            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (0.4, 0.4, 0.4, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(50)]
 
 
 <RoundedACButton@Button>:
@@ -51,7 +65,7 @@ ScreenManager:
     background_color: 0, 0, 0, 0
     canvas.before:
         Color:
-            rgba: (0.9, 0.3, 0.3, 1) if self.state == 'normal' else (1, 0.5, 1, 1)
+            rgba: (0.9, 0.3, 0.3, 1) if self.state == 'normal' else (1, 0.4, 0.4, 1)
         RoundedRectangle:
             pos: self.pos
             size: self.size
@@ -66,7 +80,7 @@ ScreenManager:
     background_color: 0, 0, 0, 0
     canvas.before:
         Color:
-            rgba: (0.3, 0.3, 0.9, 1) if self.state == 'normal' else (1, 0.5, 1, 1)
+            rgba: (0.3, 0.3, 0.9, 1) if self.state == 'normal' else (0.4, 0.4, 1, 1)
         RoundedRectangle:
             pos: self.pos
             size: self.size
@@ -83,15 +97,32 @@ ScreenManager:
         size: root.width, root.height
         padding: dp(5)
         spacing: dp(10)
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+        canvas.before:
+            Color:
+                rgba: 0.22, 0.22, 0.22, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
 
         DisplayLabel:
-            id: display
-                
+            id: display            
+
         GridLayout:
             rows: 5
             cols: 4
             size_hint_y: 0.75
             spacing: dp(10)
+
+            #background_color: (0, 0, 0, 0)
+            #background_normal: ''
+            #canvas.before:
+            #    Color:
+            #        rgba: 0.5, 0.5, 0.5, 0.5
+            #    Rectangle:
+            #        size: self.size
+            #        pos: self.pos
 
             RoundedButton:
                 text: 'Adv.'
@@ -176,13 +207,20 @@ ScreenManager:
         size: root.width, root.height
         padding: dp(5)
         spacing: dp(10)
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+        canvas.before:
+            Color:
+                rgba: 0.22, 0.22, 0.22, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
 
         DisplayLabel:
             id: display
                 
         GridLayout:
-            rows: 6
-            cols: 5
+            cols: 4
             size_hint_y: 0.75
             spacing: dp(10)
 
@@ -193,11 +231,10 @@ ScreenManager:
                     app.root.current = 'simple'
                     root.manager.transition.direction = 'right'
             RoundedButton:
-                text: ''
-                on_press: display.text += self.text
-            RoundedButton:
-                text: ''
-                on_press: display.text += self.text
+                text: 'DEG/\nRAD'
+                on_press: print('Currently only supports radians.')
+                #Have float window in display toggling deg/rad                
+                font_size: dp(20)
             RoundedButton:
                 text: '('
                 on_press: root.handle_operators(self.text)
@@ -220,12 +257,21 @@ ScreenManager:
             RoundedButton:
                 text: 'π'
                 on_press: display.text += self.text
-            RoundedButton:
-                text: 'DEG/\nRAD'
-                on_press: print('Currently only supports radians.')
-                #Have float window in display toggling deg/rad                
-                font_size: dp(20)
 
+            RoundedButton:
+                text: '^'
+                on_press: root.handle_operators(self.text)
+            RoundedButton:
+                text: 'sqrt'
+                font_size: dp(25)
+                on_press: display.text += self.text + '('
+            RoundedButton:
+                text: '<--'
+                on_press: display.text = root.backspace(display.text)
+            RoundedButton:
+                text: '×'
+                on_press: root.handle_operators(self.text)
+            
             RoundedButton:
                 text: '7'
                 on_press: display.text += self.text
@@ -236,10 +282,7 @@ ScreenManager:
                 text: '9'
                 on_press: display.text += self.text
             RoundedButton:
-                text: '×'
-                on_press: root.handle_operators(self.text)
-            RoundedButton:
-                text: '^'
+                text: '÷'
                 on_press: root.handle_operators(self.text)
 
             RoundedButton:
@@ -252,12 +295,8 @@ ScreenManager:
                 text: '6'
                 on_press: display.text += self.text
             RoundedButton:
-                text: '÷'
+                text: '+'
                 on_press: root.handle_operators(self.text)
-            RoundedButton:
-                text: 'sqrt'
-                font_size: dp(25)
-                on_press: display.text += self.text + '('
 
             RoundedButton:
                 text: '1'
@@ -269,11 +308,8 @@ ScreenManager:
                 text: '3'
                 on_press: display.text += self.text
             RoundedButton:
-                text: '+'
+                text: '-'
                 on_press: root.handle_operators(self.text)
-            RoundedButton:
-                text: '<--'
-                on_press: display.text = root.backspace(display.text)
 
             RoundedACButton:
                 text: 'AC'
@@ -284,9 +320,6 @@ ScreenManager:
             RoundedButton:
                 text: '.'
                 on_press: display.text += self.text
-            RoundedButton:
-                text: '-'
-                on_press: root.handle_operators(self.text)
             RoundedEqualButton:
                 text: '='
                 on_press: display.text = root.evaluate_expression(display.text)

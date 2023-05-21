@@ -1,9 +1,15 @@
 from kivy.app import App
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
+from kivy.core.window import Window
 
 import math
 
+# Moto g100, 9:21
+#Window.size = (386, 900)
+
+# Standard, 9:16
+#Window.size = (506, 900)
 
 class CalcApp(App):
     pass
