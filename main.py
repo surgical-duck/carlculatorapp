@@ -6,7 +6,7 @@ from kivy.core.window import Window
 import math
 
 # Moto g100, 9:21
-#Window.size = (386, 900)
+Window.size = (386, 900)
 
 # Standard, 9:16
 #Window.size = (506, 900)
@@ -18,7 +18,7 @@ class CalcApp(App):
 class Calculator():
     display = ObjectProperty(None)
     decimals = 6
-    operators = ['+', '-', '*', '/', '×', '÷']
+    operators = ['+', '-', '*', '/', '×', '÷', '^']
     replacement_dict = {'^': '**', 
                         '×': '*', 
                         '÷': '/',
@@ -35,6 +35,9 @@ class Calculator():
         if expression == "":
             return ""      
         
+        # Close open parentheses
+        expression = self.close_parentheses(expression)
+
         # Replace visual for functional operators
         expression = self.replace_operators(expression)
 
@@ -71,6 +74,20 @@ class Calculator():
         return result
     
     @staticmethod
+    def close_parentheses(expression):
+        
+        # Count parentheses
+        start_count = expression.count('(')
+        end_count = expression.count(')')
+        diff = start_count - end_count
+
+        if diff >= 0:
+            for _ in range(diff):
+                expression += ')'
+        
+        return expression
+        
+    @staticmethod
     def handle_easter_eggs(expression):
 
         if expression == "1337":
@@ -89,16 +106,22 @@ class Calculator():
             return "Looks like the meaning of life"
         
         elif expression in ["80085", "58008", "5318008"]:
-            return "and vegana"
+            return "very mature..."
+        
+        elif expression in ["35008"]:
+            return "Is it already 15:40?"
         
         elif expression in ["01134", "14"]:
             return "Hey, how are you?"
         
         elif expression == "1+1":
-            return "You do the math"
+            return "You should know that"
         
-        elif expression == "You do the math":
+        elif expression == "You should know that":
             return "3 :P"
+        
+        elif expression == "Syntax Error":
+            return "Is you stupid?"
         
         return ""
 
@@ -134,9 +157,9 @@ class Calculator():
         if expression[-4:] in ['cos(', 'sin(', 'tan(']:
             return expression[:-4]
         
-        # Handle special case pi
-        if expression[-2:] in ['pi']:
-            return expression[:-2]
+        # Handle special case sqrt
+        elif expression[-5:] == 'sqrt(':
+            return expression[:-5]
         
         # Ordinary remove latest character
         return expression[:-1]

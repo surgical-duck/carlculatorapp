@@ -126,7 +126,7 @@ ScreenManager:
             RoundedButton:
                 on_press: display.text = root.backspace(display.text)
                 Image:
-                    source: 'backspace.png'
+                    source: 'images/backspace.png'
                     center: self.parent.center
                     size: (dp(75), dp(50))
             RoundedButton:
@@ -231,10 +231,10 @@ ScreenManager:
                 font_size: dp(20)
             RoundedButton:
                 text: '('
-                on_press: root.handle_operators(self.text)
+                on_press: display.text += self.text
             RoundedButton:
                 text: ')'
-                on_press: root.handle_operators(self.text)
+                on_press: display.text += self.text
                 
             RoundedButton:
                 text: 'sin'
@@ -262,7 +262,7 @@ ScreenManager:
             RoundedButton:
                 on_press: display.text = root.backspace(display.text)
                 Image:
-                    source: 'backspace.png'
+                    source: 'images/backspace.png'
                     center: self.parent.center
                     size: (dp(75), dp(50))
                 
