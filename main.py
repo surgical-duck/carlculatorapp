@@ -6,10 +6,10 @@ from kivy.core.window import Window
 import math
 
 # Moto g100, 9:21
-#Window.size = (386, 900)
+# Window.size = (386, 900)
 
 # Standard, 9:16
-#Window.size = (506, 900)
+# Window.size = (506, 900)
 
 class CalcApp(App):
     pass
@@ -27,7 +27,8 @@ class Calculator():
                         'tan': 'math.tan',
                         'pi': 'math.pi',
                         'π': 'math.pi',
-                        'sqrt': 'math.sqrt'}
+                        'sqrt': 'math.sqrt',
+                        'e': 'math.e'}
     
     def evaluate_expression(self, expression):
         
