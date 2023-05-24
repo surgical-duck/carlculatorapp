@@ -95,7 +95,7 @@ ScreenManager:
         rows: 2
         cols: 1
         size: root.width, root.height
-        padding: dp(5)
+        padding: dp(0)
         spacing: dp(10)
         background_color: (0, 0, 0, 0)
         background_normal: ''
@@ -113,6 +113,7 @@ ScreenManager:
             rows: 5
             cols: 4
             size_hint_y: 0.75
+            padding: dp(15)
             spacing: dp(10)
 
             RoundedButton:
@@ -189,6 +190,24 @@ ScreenManager:
                 text: '='
                 on_press: display.text = root.evaluate_expression(display.text)
                 font_size:dp(35)
+    FloatLayout:
+        Button:
+            size_hint_x: None
+            size_hint_y: None
+            size: (dp(50), dp(50))
+            pos: (0, root.height-self.height)
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+            canvas.before:
+                Color:
+                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Image:
+                source: 'images/menu_white.png'
+                center: self.parent.center
+                size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
 
 
 <Advanced>:
@@ -199,7 +218,7 @@ ScreenManager:
         rows: 2
         cols: 1
         size: root.width, root.height
-        padding: dp(5)
+        padding: dp(0)
         spacing: dp(10)
         background_color: (0, 0, 0, 0)
         background_normal: ''
@@ -216,6 +235,7 @@ ScreenManager:
         GridLayout:
             cols: 4
             size_hint_y: 0.75
+            padding: dp(15)
             spacing: dp(10)
 
             RoundedButton:
@@ -321,3 +341,21 @@ ScreenManager:
             RoundedEqualButton:
                 text: '='
                 on_press: display.text = root.evaluate_expression(display.text)
+    FloatLayout:
+        Button:
+            size_hint_x: None
+            size_hint_y: None
+            size: (dp(50), dp(50))
+            pos: (0, root.height-self.height)
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+            canvas.before:
+                Color:
+                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Image:
+                source: 'images/menu_white.png'
+                center: self.parent.center
+                size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)

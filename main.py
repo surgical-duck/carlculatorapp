@@ -6,7 +6,7 @@ from kivy.core.window import Window
 import math
 
 # Moto g100, 9:21
-Window.size = (386, 900)
+#Window.size = (386, 900)
 
 # Standard, 9:16
 #Window.size = (506, 900)
