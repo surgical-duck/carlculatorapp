@@ -1,7 +1,8 @@
 ScreenManager:
     Simple:
-    Advanced:    
-    
+    Advanced: 
+    #Menu:   
+
 
 <DisplayLabel@Label>:
     id: display
@@ -39,7 +40,7 @@ ScreenManager:
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [dp(50)]
+            radius: [dp(30)]
 
 
 <RoundedNumberButton@RoundedButton>:
@@ -54,7 +55,7 @@ ScreenManager:
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [dp(50)]
+            radius: [dp(30)]
 
 
 <RoundedACButton@Button>:
@@ -69,7 +70,7 @@ ScreenManager:
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [dp(50)]
+            radius: [dp(30)]
 
 
 <RoundedEqualButton@RoundedButton>:
@@ -84,7 +85,7 @@ ScreenManager:
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [dp(50)]
+            radius: [dp(30)]
 
 
 <Simple>:
@@ -120,19 +121,19 @@ ScreenManager:
                 size_hint_y: 0.16
                 RoundedButton:
                     text: '×'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
                 RoundedButton:
                     text: '÷'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
                 RoundedButton:
                     text: '+'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
                 RoundedButton:
                     text: '-'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
 
             BoxLayout:
@@ -224,27 +225,30 @@ ScreenManager:
 
                     RoundedEqualButton:
                         text: '='
-                        on_press: display.text = root.evaluate_expression(display.text)
+                        on_press: display.text = root.evaluate_expression(display.text, None)
                         font_size:dp(35)
 
     FloatLayout:
-        Button:
-            size_hint_x: None
-            size_hint_y: None
-            size: (dp(50), dp(50))
-            pos: (0, root.height-self.height)
-            background_color: (0, 0, 0, 0)
-            background_normal: ''
-            canvas.before:
-                Color:
-                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
-            Image:
-                source: 'images/menu_white.png'
-                center: self.parent.center
-                size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
+        #Button:
+        #    on_release: 
+        #        app.root.current = 'menu'
+        #        root.manager.transition.direction = 'down'
+        #    size_hint_x: None
+        #    size_hint_y: None
+        #    size: (dp(50), dp(50))
+        #    pos: (0, root.height-self.height)
+        #    background_color: (0, 0, 0, 0)
+        #    background_normal: ''
+        #    canvas.before:
+        #        Color:
+        #            rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+        #        Rectangle:
+        #            size: self.size
+        #            pos: self.pos
+        #    Image:
+        #        source: 'images/setting.png'
+        #        center: self.parent.center
+        #        size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
         
         Button:
             on_release: 
@@ -253,7 +257,7 @@ ScreenManager:
             size_hint_x: None
             size_hint_y: None
             size: (dp(50), dp(50))
-            pos: (dp(50), root.height-self.height)
+            pos: (root.width-self.width, root.height-self.height)
             background_color: (0, 0, 0, 0)
             background_normal: ''
             canvas.before:
@@ -303,9 +307,11 @@ ScreenManager:
                 RoundedButton:
                     text: 'π'
                     on_press: display.text += self.text
+                    font_size: dp(27)
                 RoundedButton:
                     text: 'e'
-                    on_press: display.text += self.text              
+                    on_press: display.text += self.text 
+                    font_size: dp(27)             
                 RoundedButton:
                     text: '('
                     on_press: display.text += self.text
@@ -314,10 +320,9 @@ ScreenManager:
                     on_press: display.text += self.text
                 
                 RoundedButton:
-                    text: 'DEG/\nRAD'
-                    on_press: print('Currently only supports radians.')
-                    #Have float window in display toggling deg/rad                
-                    font_size: dp(20)
+                    text: 'DEG\nRAD'
+                    on_press: rad_deg_label.text = root.rad_deg_swap(rad_deg_label.text)
+                    font_size: dp(16)
                 RoundedButton:
                     text: 'sin'
                     font_size: dp(25)
@@ -329,8 +334,7 @@ ScreenManager:
                 RoundedButton:
                     text: 'tan'
                     font_size: dp(25)
-                    on_press: display.text += self.text + '('
-                
+                    on_press: display.text += self.text + '('  
 
             GridLayout:
                 cols: 4
@@ -340,7 +344,7 @@ ScreenManager:
 
                 RoundedButton:
                     text: '^'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
                 RoundedButton:
                     on_press: display.text += 'sqrt('
                     Image:
@@ -353,10 +357,9 @@ ScreenManager:
                         source: 'images/backspace.png'
                         center: self.parent.center
                         size: (dp(75), dp(50))
-                    
                 RoundedButton:
                     text: '×'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
                 
                 RoundedButton:
                     text: '7'
@@ -369,7 +372,7 @@ ScreenManager:
                     on_press: display.text += self.text
                 RoundedButton:
                     text: '÷'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
 
                 RoundedButton:
                     text: '4'
@@ -382,7 +385,7 @@ ScreenManager:
                     on_press: display.text += self.text
                 RoundedButton:
                     text: '+'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
 
                 RoundedButton:
                     text: '1'
@@ -395,7 +398,7 @@ ScreenManager:
                     on_press: display.text += self.text
                 RoundedButton:
                     text: '-'
-                    on_press: root.handle_operators(self.text)
+                    on_press: display.text = root.handle_operators(self.text)
 
                 RoundedACButton:
                     text: 'AC'
@@ -408,25 +411,29 @@ ScreenManager:
                     on_press: display.text += self.text
                 RoundedEqualButton:
                     text: '='
-                    on_press: display.text = root.evaluate_expression(display.text)
+                    on_press: display.text = root.evaluate_expression(display.text, rad_deg_label.text)
+    
     FloatLayout:
-        Button:
-            size_hint_x: None
-            size_hint_y: None
-            size: (dp(50), dp(50))
-            pos: (0, root.height-self.height)
-            background_color: (0, 0, 0, 0)
-            background_normal: ''
-            canvas.before:
-                Color:
-                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
-            Image:
-                source: 'images/menu_white.png'
-                center: self.parent.center
-                size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
+        #Button:
+        #    on_release: 
+        #        app.root.current = 'menu'
+        #        root.manager.transition.direction = 'down'
+        #    size_hint_x: None
+        #    size_hint_y: None
+        #    size: (dp(50), dp(50))
+        #    pos: (0, root.height-self.height)
+        #    background_color: (0, 0, 0, 0)
+        #    background_normal: ''
+        #    canvas.before:
+        #        Color:
+        #            rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+        #        Rectangle:
+        #            size: self.size
+        #            pos: self.pos
+        #    Image:
+        #        source: 'images/menu_white.png'
+        #        center: self.parent.center
+        #        size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
         
         Button:
             on_release: 
@@ -435,7 +442,7 @@ ScreenManager:
             size_hint_x: None
             size_hint_y: None
             size: (dp(50), dp(50))
-            pos: (dp(50), root.height-self.height)
+            pos: (root.width-self.width, root.height-self.height)
             background_color: (0, 0, 0, 0)
             background_normal: ''
             canvas.before:
@@ -448,3 +455,206 @@ ScreenManager:
                 source: 'images/swap.png'
                 center: self.parent.center
                 size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
+
+        Label:
+            text: 'RAD'
+            id: rad_deg_label
+            font_size: dp(15)
+            color: (1, 1, 1, 1)
+            size_hint_x: None
+            size_hint_y: None
+            size: (dp(50), dp(50))
+            pos: display.pos
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+            canvas.before:
+                Color:
+                    rgba: (0.16, 0.16, 0.16, 1) 
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+#
+#<MenuButton@Button>:
+#    size_hint_y: None
+#    height: dp(80)
+#    font_size:dp(20)
+#    color: 1, 1, 1, 1
+#    background_normal: ''
+#    background_color: 0, 0, 0, 0
+#    canvas.before:
+#        Color:
+#            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (0.4, 0.4, 0.4, 1)
+#        Rectangle:
+#            pos: self.pos
+#            size: self.size
+#
+#<Menu>:
+#    name: 'menu'
+#
+#    ScrollView:
+#        do_scroll_x: False
+#
+#        BoxLayout:
+#            padding: dp(5)
+#            spacing: dp(5)
+#            background_color: (0, 0, 0, 0)
+#            background_normal: ''
+#            canvas.before:
+#                Color:
+#                    rgba: (0.16, 0.16, 0.16, 1)
+#                Rectangle:
+#                    size: self.size
+#                    pos: self.pos
+#            orientation: 'vertical'
+#            #size_hint_y: None
+#            #height: self.minimum_height
+#            
+#            BoxLayout:
+#                BoxLayout:
+#                    orientation: 'vertical'
+#                    height: dp(240)
+#                    background_color: (0, 0, 0, 0)
+#                    background_normal: ''
+#                    canvas.before:
+#                        Color:
+#                            rgba: (0.5, 0.5, 0.5, 1)
+#                        Rectangle:
+#                            size: (self.size[0], dp(240))
+#                            pos: self.pos
+#                    Label:
+#                        text: 'Default calculator'
+#                        pos: self.parent.pos
+#                        size_hint_y: None
+#                        height: dp(80)
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Simple'
+#                        CheckBox:
+#                            size_hint_x: 1
+#                            group: 'default_calc'
+#                            active: root.simple_default
+#                            on_active: root.set_default_calc('simple')
+#                            allow_no_selection: False
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Advanced'
+#                        CheckBox:
+#                            group: 'default_calc'
+#                            active: root.advanced_default
+#                            on_active: root.set_default_calc('advanced')
+#                            allow_no_selection: False
+#            
+#            BoxLayout:
+#                BoxLayout:
+#                    orientation: 'vertical'
+#                    height: dp(240)
+#                    background_color: (0, 0, 0, 0)
+#                    background_normal: ''
+#                    canvas.before:
+#                        Color:
+#                            rgba: (0.5, 0.5, 0.5, 1)
+#                        Rectangle:
+#                            size: (self.size[0], dp(240))
+#                            pos: self.pos
+#                    Label:
+#                        text: 'Default angle unit'
+#                        pos: self.parent.pos
+#                        size_hint_y: None
+#                        height: dp(80)
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Radians'
+#                        CheckBox:
+#                            size_hint_x: 1
+#                            group: 'default_rad_deg'
+#                            #active: root.simple_default
+#                            #on_active: root.set_default_calc('simple')
+#                            allow_no_selection: False
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Degrees'
+#                        CheckBox:
+#                            group: 'default_rad_deg'
+#                            #active: root.advanced_default
+#                            #on_active: root.set_default_calc('advanced')
+#                            allow_no_selection: False
+#
+#            BoxLayout:
+#                BoxLayout:
+#                    orientation: 'vertical'
+#                    height: dp(320)
+#                    background_color: (0, 0, 0, 0)
+#                    background_normal: ''
+#                    canvas.before:
+#                        Color:
+#                            rgba: (0.5, 0.5, 0.5, 1)
+#                        Rectangle:
+#                            size: (self.size[0], dp(320))
+#                            pos: self.pos
+#                    Label:
+#                        text: 'Default color theme'
+#                        pos: self.parent.pos
+#                        size_hint_y: None
+#                        height: dp(80)
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Dark'
+#                        CheckBox:
+#                            size_hint_x: 1
+#                            group: 'default_rad_deg'
+#                            #active: root.simple_default
+#                            #on_active: root.set_default_calc('simple')
+#                            allow_no_selection: False
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Light'
+#                        CheckBox:
+#                            group: 'default_rad_deg'
+#                            #active: root.advanced_default
+#                            #on_active: root.set_default_calc('advanced')
+#                            allow_no_selection: False
+#                    BoxLayout:
+#                        size_hint_y: None
+#                        height: dp(80)
+#                        Label:
+#                            text: 'Pink'
+#                        CheckBox:
+#                            group: 'default_rad_deg'
+#                            #active: root.advanced_default
+#                            #on_active: root.set_default_calc('advanced')
+#                            allow_no_selection: False
+#
+#            MenuButton:
+#                text: 'Easter eggs'
+#                size_hint_y: None
+#                height: dp(80)
+#                # TODO Popup?
+#            MenuButton:
+#                text: 'About'
+#                size_hint_y: None
+#                height: dp(80)
+#                # TODO Popup?
+#            MenuButton:
+#                halign: 'center'
+#                size_hint_y: None
+#                height: dp(80)
+#                on_release: 
+#                    app.root.current = root.default_calculator
+#                    root.manager.transition.direction = 'up'
+#                Image:
+#                    source: 'images/return.png'
+#                    center: self.parent.center
+#                    size: (self.parent.size[1]*0.5, self.parent.size[1]*0.5)
