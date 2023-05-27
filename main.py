@@ -1,7 +1,8 @@
 from kivy.app import App
 from kivy.properties import ObjectProperty
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
+from kivy.lang import Builder
 
 from math import sin, cos, tan, pi, sqrt, e, radians
 
@@ -13,8 +14,34 @@ from math import sin, cos, tan, pi, sqrt, e, radians
 
 
 class CalcApp(App):
-    pass
+     
+    def build(self):
+        
+        # Read settings
+        with open('settings.txt', 'r') as f:
+            settings_list = f.readlines()
+        
+        # Set screen manager settings
+        if settings_list[0].strip() == 'advanced':
+            sm_string = 'ScreenManager:\n    Advanced:\n    Simple:\n    Menu:'
+        else:
+            sm_string = 'ScreenManager:\n    Simple:\n    Advanced:\n    Menu:'
 
+        # Read kv file
+        with open('calc.kv', 'r') as f:
+            kv_list = f.readlines()
+        
+        # Convert from list to string
+        kv_string = ''
+        for line in kv_list:
+            kv_string += line
+        
+        # Build app
+        build_string = sm_string + kv_string
+        app_build = Builder.load_string(build_string)
+
+        return app_build
+    
 
 class Calculator():
     display = ObjectProperty(None)
@@ -125,7 +152,10 @@ class Calculator():
             return "3 :P"
         
         elif expression == "Syntax Error":
-            return "Is you stupid?"
+            return "Error mannen"
+        
+        elif expression == "Error mannen":
+            return "CHILLA"
         
         return ""
 
@@ -194,47 +224,45 @@ class Simple(Screen, Calculator):
 
 class Advanced(Screen, Calculator):
     decimals = 10
-    pass
 
 
-# class Menu(Screen):
-#     default_calculator = 'simple'
-#     color_theme = 'dark'
-#     screen_manager = ObjectProperty(None)
+class Menu(Screen):
+    default_calculator = 'simple'
+    color_theme = 'dark'
 
-#     def __init__(self, **kw):
-#         super().__init__(**kw)
+    def __init__(self, **kw):
+        super().__init__(**kw)
 
-#         # Read settings
-#         with open('settings.txt', 'r') as f:
+        # Read settings
+        with open('settings.txt', 'r') as f:
 
-#             # Read default calculator
-#             settings = f.readlines()
-#             if settings[0].strip() == 'simple':
-#                 self.default_calculator = 'simple'
-#                 self.simple_default = True
-#                 self.advanced_default = False
-#             else:
-#                 self.default_calculator = 'advanced'
-#                 self.simple_default = False
-#                 self.advanced_default = True
+            # Read default calculator
+            settings = f.readlines()
+            if settings[0].strip() == 'simple':
+                self.default_calculator = 'simple'
+                self.simple_default = True
+                self.advanced_default = False
+            else:
+                self.default_calculator = 'advanced'
+                self.simple_default = False
+                self.advanced_default = True
             
-#             # Read color theme
-#             if settings[1].strip() == 'light':
-#                 self.color_theme == 'light'
-#             elif settings[1].strip() == 'pink': 
-#                 self.color_theme == 'pink'
-#             else:
-#                 self.color_theme == 'dark'
+            # Read color theme
+            if settings[1].strip() == 'light':
+                self.color_theme == 'light'
+            elif settings[1].strip() == 'pink': 
+                self.color_theme == 'pink'
+            else:
+                self.color_theme == 'dark'
 
-#     def set_default_calc(self, text):
+    def set_default_calc(self, text):
         
-#         # Tick unticked box and update settings.txt
-#         self.default_calculator = text
+        # Tick unticked box and update settings.txt
+        self.default_calculator = text
 
-#         with open('settings.txt', 'w') as f:
-#             f.write(text + '\n')
-#             f.write(self.color_theme)
+        with open('settings.txt', 'w') as f:
+            f.write(text + '\n')
+            f.write(self.color_theme)
         
 
 if __name__ == '__main__':
