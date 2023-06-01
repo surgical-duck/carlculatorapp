@@ -1,75 +1,44 @@
 
 
-<DisplayLabel@Label>:
+<DisplayLabel>:
     id: display
     size_hint_y: 0.3
     canvas.before:
         Color:
-            rgba: (0.16, 0.16, 0.16, 1)
+            rgba: root.background_color
         Rectangle:
             size: display.size
             pos: display.pos
     text:""
-    font_size:dp(45)
+    color: root.font_color
+    font_size: dp(45)
     halign: 'right'
     valign: 'middle'
     text_size: self.width*0.9, self.height
 
 
-<RoundedButton@Button>:
+<SmallRoundedButton@Button>:
     font_size:dp(30)
-    color: 1, 1, 1, 1
     background_normal: ''
     background_color: 0, 0, 0, 0
-    canvas.before:
-        Color:
-            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (0.4, 0.4, 0.4, 1)
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [dp(30)]
 
 
-<RoundedNumberButton@RoundedButton>:
+<LargeRoundedButton@Button>:
     font_size:dp(30)
-    color: 1, 1, 1, 1
     background_normal: ''
     background_color: 0, 0, 0, 0
-    canvas.before:
-        Color:
-            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (0.4, 0.4, 0.4, 1)
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [dp(30)]
 
 
-<RoundedACButton@Button>:
+<ACRoundedButton@Button>:
     font_size:dp(30)
-    color: 1, 1, 1, 1
     background_normal: ''
     background_color: 0, 0, 0, 0
-    canvas.before:
-        Color:
-            rgba: (0.9, 0.3, 0.3, 1) if self.state == 'normal' else (1, 0.4, 0.4, 1)
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [dp(30)]
 
 
-<RoundedEqualButton@RoundedButton>:
+<EqualRoundedButton@Button>:
     font_size:dp(30)
-    color: 1, 1, 1, 1
     background_normal: ''
     background_color: 0, 0, 0, 0
-    canvas.before:
-        Color:
-            rgba: (0.3, 0.3, 0.9, 1) if self.state == 'normal' else (0.4, 0.4, 1, 1)
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [dp(30)]
 
 
 <Simple>:
@@ -86,7 +55,7 @@
         background_normal: ''
         canvas.before:
             Color:
-                rgba: 0.22, 0.22, 0.22, 1
+                rgba: root.calculator_background
             Rectangle:
                 size: self.size
                 pos: self.pos
@@ -103,22 +72,54 @@
                 padding: dp(0)
                 spacing: dp(10)
                 size_hint_y: 0.16
-                RoundedButton:
+                LargeRoundedButton:
                     text: '×'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '÷'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '+'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '-'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
                     font_size:dp(35)
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
 
             BoxLayout:
                 size_hint_y: 0.84
@@ -134,41 +135,99 @@
                         orientation: 'vertical'
                         spacing: dp(10)
 
-                        RoundedButton:
+                        LargeRoundedButton:
                             text: '7'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
-                        RoundedButton:
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
+                        LargeRoundedButton:
                             text: '4'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
                     
                     BoxLayout:
                         orientation: 'vertical'
                         spacing: dp(10)
 
-                        RoundedButton:
+                        LargeRoundedButton:
                             text: '8'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
-                        RoundedButton:
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
+
+                        LargeRoundedButton:
                             text: '5'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
                     
                     BoxLayout:
                         orientation: 'vertical'
                         spacing: dp(10)
 
-                        RoundedButton:
+                        LargeRoundedButton:
                             text: '9'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
-                        RoundedButton:
-                            text: '6'
-                            on_press: display.text += self.text
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
 
-                    RoundedButton:
+                        LargeRoundedButton:
+                            text: '6'
+                            color: root.settings.larger_button_font
+                            on_press: display.text += self.text
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
+
+                    LargeRoundedButton:
+                        canvas.before:
+                            Color:
+                                rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(30)]
                         on_press: display.text = root.backspace(display.text)
                         Image:
-                            source: 'images/backspace.png'
+                            source: root.settings.backspace_icon
                             center: self.parent.center
                             size: (dp(75), dp(50))
+                        
 
                 BoxLayout:
                     padding: dp(0)
@@ -178,39 +237,95 @@
                         orientation: 'vertical'
                         spacing: dp(10)
 
-                        RoundedButton:
+                        LargeRoundedButton:
                             text: '1'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
-                        RoundedACButton:
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
+                        ACRoundedButton:
                             text: 'AC'
+                            color: root.settings.larger_button_font
                             on_press: display.text = ''
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.ac_button if self.state == 'normal' else root.settings.ac_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
 
                     BoxLayout:
                         orientation: 'vertical'
                         spacing: dp(10)
 
-                        RoundedButton:
+                        LargeRoundedButton:
                             text: '2'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
-                        RoundedButton:
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
+                        LargeRoundedButton:
                             text: '0'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
 
                     BoxLayout:
                         orientation: 'vertical'
                         spacing: dp(10)
 
-                        RoundedButton:
+                        LargeRoundedButton:
                             text: '3'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
-                        RoundedButton:
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
+                        LargeRoundedButton:
                             text: '.'
+                            color: root.settings.larger_button_font
                             on_press: display.text += self.text
+                            canvas.before:
+                                Color:
+                                    rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(30)]
 
-                    RoundedEqualButton:
+                    EqualRoundedButton:
                         text: '='
+                        color: root.settings.larger_button_font
                         on_press: display.text = root.evaluate_expression(display.text, None)
                         font_size:dp(35)
+                        canvas.before:
+                            Color:
+                                rgba: root.settings.equal_button if self.state == 'normal' else root.settings.equal_button_on_press
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(30)]
 
     FloatLayout:
         Button:
@@ -225,12 +340,12 @@
             background_normal: ''
             canvas.before:
                 Color:
-                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+                    rgba: root.settings.display_background if self.state == 'normal' else root.settings.display_button_on_press
                 Rectangle:
                     size: self.size
                     pos: self.pos
             Image:
-                source: 'images/setting.png'
+                source: root.settings.menu_icon
                 center: self.parent.center
                 size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
         
@@ -246,12 +361,12 @@
             background_normal: ''
             canvas.before:
                 Color:
-                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+                    rgba: root.settings.display_background if self.state == 'normal' else root.settings.display_button_on_press
                 Rectangle:
                     size: self.size
                     pos: self.pos
             Image:
-                source: 'images/swap.png'
+                source: root.settings.swap_icon
                 center: self.parent.center
                 size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
 
@@ -270,7 +385,7 @@
         background_normal: ''
         canvas.before:
             Color:
-                rgba: 0.22, 0.22, 0.22, 1
+                rgba: root.settings.calculator_background
             Rectangle:
                 size: self.size
                 pos: self.pos
@@ -288,37 +403,106 @@
                 padding: (dp(15), dp(5), dp(15), dp(15))
                 spacing: dp(10)
 
-                RoundedButton:
+                SmallRoundedButton:
                     text: 'π'
+                    color: root.settings.smaller_button_font
                     on_press: display.text += self.text
                     font_size: dp(27)
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                SmallRoundedButton:
                     text: 'e'
+                    color: root.settings.smaller_button_font
                     on_press: display.text += self.text 
-                    font_size: dp(27)             
-                RoundedButton:
+                    font_size: dp(27)    
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+
+                SmallRoundedButton:
                     text: '('
+                    color: root.settings.smaller_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+
+                SmallRoundedButton:
                     text: ')'
+                    color: root.settings.smaller_button_font
                     on_press: display.text += self.text
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
                 
-                RoundedButton:
+                SmallRoundedButton:
                     text: 'DEG\nRAD'
+                    color: root.settings.smaller_button_font
                     on_press: rad_deg_label.text = root.rad_deg_swap(rad_deg_label.text)
                     font_size: dp(16)
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+
+                SmallRoundedButton:
                     text: 'sin'
+                    color: root.settings.smaller_button_font
                     font_size: dp(25)
                     on_press: display.text += self.text + '('
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+
+                SmallRoundedButton:
                     text: 'cos'
+                    color: root.settings.smaller_button_font
                     font_size: dp(25)
                     on_press: display.text += self.text + '('
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+
+                SmallRoundedButton:
                     text: 'tan'
+                    color: root.settings.smaller_button_font
                     font_size: dp(25)
                     on_press: display.text += self.text + '('  
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.smaller_button if self.state == 'normal' else root.settings.smaller_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
 
             GridLayout:
                 cols: 4
@@ -326,77 +510,235 @@
                 padding: (dp(15), dp(5), dp(15), dp(15))
                 spacing: dp(10)
 
-                RoundedButton:
+                LargeRoundedButton:
                     text: '^'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
                     on_press: display.text += 'sqrt('
                     Image:
-                        source: 'images/sqrt.png'
+                        source: root.settings.sqrt_icon
                         center: self.parent.center
                         size: (dp(40), dp(40))
-                RoundedButton:
+                    
+                LargeRoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
                     on_press: display.text = root.backspace(display.text)
                     Image:
-                        source: 'images/backspace.png'
+                        source: root.settings.backspace_icon
                         center: self.parent.center
                         size: (dp(75), dp(50))
-                RoundedButton:
+                LargeRoundedButton:
                     text: '×'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
-                
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+
+                LargeRoundedButton:
                     text: '7'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '8'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '9'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '÷'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
 
-                RoundedButton:
+                LargeRoundedButton:
                     text: '4'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '5'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '6'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '+'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
 
-                RoundedButton:
+                LargeRoundedButton:
                     text: '1'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '2'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '3'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '-'
+                    color: root.settings.larger_button_font
                     on_press: display.text = root.handle_operators(self.text)
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
 
-                RoundedACButton:
+                ACRoundedButton:
                     text: 'AC'
+                    color: root.settings.ac_button_font
                     on_press: display.text = ''
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.ac_button if self.state == 'normal' else root.settings.ac_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '0'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                LargeRoundedButton:
                     text: '.'
+                    color: root.settings.larger_button_font
                     on_press: display.text += self.text
-                RoundedEqualButton:
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.larger_button if self.state == 'normal' else root.settings.larger_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
+                EqualRoundedButton:
                     text: '='
+                    color: root.settings.equal_button_font
                     on_press: display.text = root.evaluate_expression(display.text, rad_deg_label.text)
-    
+                    canvas.before:
+                        Color:
+                            rgba: root.settings.equal_button if self.state == 'normal' else root.settings.equal_button_on_press
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(30)]
     FloatLayout:
         Button:
             on_release: 
@@ -410,12 +752,12 @@
             background_normal: ''
             canvas.before:
                 Color:
-                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+                    rgba: root.settings.display_background if self.state == 'normal' else root.settings.display_button_on_press
                 Rectangle:
                     size: self.size
                     pos: self.pos
             Image:
-                source: 'images/setting.png'
+                source: root.settings.menu_icon
                 center: self.parent.center
                 size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
         
@@ -431,20 +773,20 @@
             background_normal: ''
             canvas.before:
                 Color:
-                    rgba: (0.16, 0.16, 0.16, 1) if self.state == 'normal' else (0.26, 0.26, 0.26, 1)
+                    rgba: root.settings.display_background if self.state == 'normal' else root.settings.display_button_on_press
                 Rectangle:
                     size: self.size
                     pos: self.pos
             Image:
-                source: 'images/swap.png'
+                source: root.settings.swap_icon
                 center: self.parent.center
                 size: (self.parent.size[0]*0.7, self.parent.size[1]*0.7)
 
-        Label:
-            text: 'RAD'
+        Button:
+            text: root.rad_deg_default 
+            color: root.settings.display_font
             id: rad_deg_label
             font_size: dp(15)
-            color: (1, 1, 1, 1)
             size_hint_x: None
             size_hint_y: None
             size: (dp(50), dp(50))
@@ -453,7 +795,7 @@
             background_normal: ''
             canvas.before:
                 Color:
-                    rgba: (0.16, 0.16, 0.16, 1) 
+                    rgba: root.settings.display_background if self.state == 'normal' else root.settings.display_button_on_press
                 Rectangle:
                     size: self.size
                     pos: self.pos
@@ -462,13 +804,13 @@
 <MenuButton@Button>:
     size_hint_y: None
     height: dp(80)
-    font_size:dp(20)
+    font_size: dp(20)
     color: 1, 1, 1, 1
     background_normal: ''
     background_color: 0, 0, 0, 0
     canvas.before:
         Color:
-            rgba: (0.3, 0.3, 0.3, 1) if self.state == 'normal' else (0.4, 0.4, 0.4, 1)
+            rgba: (1, 1, 1, 1) if self.state == 'normal' else (0.8, 0.8, 0.8, 1)
         Rectangle:
             pos: self.pos
             size: self.size
@@ -486,162 +828,215 @@
             background_normal: ''
             canvas.before:
                 Color:
-                    rgba: (0.16, 0.16, 0.16, 1)
+                    rgba: (1, 1, 1, 1) 
                 Rectangle:
                     size: self.size
                     pos: self.pos
             orientation: 'vertical'
-            #size_hint_y: None
-            #height: self.minimum_height
             
             BoxLayout:
+                size_hint_y: 0.08
+
+                MenuButton:
+                    text: '<'
+                    color: (0, 0, 0, 1)
+                    font_size: dp(20)
+                    size_hint_x: 0.2
+                    size_hint_y: 1
+                    text_size: (self.width, self.height)
+                    halign: 'center'
+                    valign: 'center'
+                    on_release: 
+                        app.root.current = root.default_calculator
+                        root.manager.transition.direction = 'up'
+                Label:
+                    text: 'Settings'
+                    font_size: dp(25)
+                    color: (0, 0, 0, 1)
+                    size_hint_x: 0.8
+                    text_size: (self.width*0.6, self.height)
+                    halign: 'left'
+                    valign: 'center'
+
+            BoxLayout:
+                size_hint_y: 0.24
+
                 BoxLayout:
-                    size_hint_y: None
                     orientation: 'vertical'
-                    height: dp(120)
-                    background_color: (0, 0, 0, 0)
-                    background_normal: ''
-                    canvas.before:
-                        Color:
-                            rgba: (0.5, 0.5, 0.5, 1)
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
+
                     Label:
-                        text: 'Default calculator'
+                        text: 'Default calculator:'
+                        color: (0, 0, 0, 1)
+                        font_size: dp(20)
                         pos: self.parent.pos
-                        #size_hint_y: None
-                        #height: dp(40)
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: (self.size[0]*0.9, self.size[1])
+                        canvas.before:
+                            Color:
+                                rgba: (0.5, 0.5, 0.5, 1)
+                            Line:
+                                points: (7, self.y+self.height, self.width, self.y+self.height)
                     BoxLayout:
-                        #size_hint_y: None
-                        #height: dp(40)
                         Label:
                             text: 'Simple'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            text_size: (self.size[0]*0.9, self.size[1])
+                            halign: 'right'
+                            valign: 'center'
                         CheckBox:
-                            size_hint_x: 1
                             group: 'default_calc'
-                            active: root.simple_default
+                            active: root.default_calculator == 'simple'
                             on_active: root.set_default_calc('simple')
                             allow_no_selection: False
                     BoxLayout:
-                        #size_hint_y: None
-                        #height: dp(40)
                         Label:
                             text: 'Advanced'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            text_size: (self.size[0]*0.9, self.size[1])
+                            halign: 'right'
+                            valign: 'center'
                         CheckBox:
                             group: 'default_calc'
-                            active: root.advanced_default
+                            active: root.default_calculator == 'advanced'
                             on_active: root.set_default_calc('advanced')
-                            allow_no_selection: False
-            
-            BoxLayout:
-                BoxLayout:
-                    size_hint_y: None
-                    orientation: 'vertical'
-                    height: dp(120)
-                    background_color: (0, 0, 0, 0)
-                    background_normal: ''
-                    canvas.before:
-                        Color:
-                            rgba: (0.5, 0.5, 0.5, 1)
-                        Rectangle:
-                            size: (self.size[0], dp(120))
-                            pos: self.pos
-                    Label:
-                        text: 'Default angle unit'
-                        pos: self.parent.pos
-                        size_hint_y: None
-                        height: dp(40)
-                    BoxLayout:
-                        size_hint_y: None
-                        height: dp(40)
-                        Label:
-                            text: 'Radians'
-                        CheckBox:
-                            size_hint_x: 1
-                            group: 'default_rad_deg'
-                            #active: root.simple_default
-                            #on_active: root.set_default_calc('simple')
-                            allow_no_selection: False
-                    BoxLayout:
-                        size_hint_y: None
-                        height: dp(40)
-                        Label:
-                            text: 'Degrees'
-                        CheckBox:
-                            group: 'default_rad_deg'
-                            #active: root.advanced_default
-                            #on_active: root.set_default_calc('advanced')
                             allow_no_selection: False
 
             BoxLayout:
+                size_hint_y: 0.28
+
                 BoxLayout:
-                    size_hint_y: None
                     orientation: 'vertical'
-                    height: dp(160)
-                    background_color: (0, 0, 0, 0)
-                    background_normal: ''
-                    canvas.before:
-                        Color:
-                            rgba: (0.5, 0.5, 0.5, 1)
-                        Rectangle:
-                            size: (self.size[0], dp(160))
-                            pos: self.pos
+
                     Label:
-                        text: 'Default color theme'
+                        text: 'Default color theme:'
                         pos: self.parent.pos
-                        size_hint_y: None
-                        height: dp(40)
+                        color: (0, 0, 0, 1)
+                        font_size: dp(20)
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: (self.size[0]*0.9, self.size[1])
+                        canvas.before:
+                            Color:
+                                rgba: (0.5, 0.5, 0.5, 1)
+                            Line:
+                                points: (7, self.y+self.height, self.width, self.y+self.height)
+
                     BoxLayout:
-                        size_hint_y: None
-                        height: dp(40)
                         Label:
                             text: 'Dark'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            halign: 'right'
+                            valign: 'center'
+                            text_size: (self.size[0]*0.9, self.size[1])
                         CheckBox:
                             size_hint_x: 1
                             group: 'color_theme_group'
-                            #active: root.simple_default
-                            #on_active: root.set_default_calc('simple')
+                            active: root.color_theme == 'dark'
+                            on_active: root.set_color_theme('dark')
+                            on_release: root.popup_color_theme()
                             allow_no_selection: False
                     BoxLayout:
-                        size_hint_y: None
-                        height: dp(40)
                         Label:
                             text: 'Light'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            halign: 'right'
+                            valign: 'center'
+                            text_size: (self.size[0]*0.9, self.size[1])
                         CheckBox:
                             group: 'color_theme_group'
-                            #active: root.advanced_default
-                            #on_active: root.set_default_calc('advanced')
+                            active: root.color_theme == 'light'
+                            on_active: root.set_color_theme('light')
+                            on_release: root.popup_color_theme()
                             allow_no_selection: False
+
                     BoxLayout:
-                        size_hint_y: None
-                        height: dp(40)
                         Label:
-                            text: 'Pink'
+                            text: 'Maida'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            halign: 'right'
+                            valign: 'center'
+                            text_size: (self.size[0]*0.9, self.size[1])
                         CheckBox:
                             group: 'color_theme_group'
-                            #active: root.advanced_default
-                            #on_active: root.set_default_calc('advanced')
+                            active: root.color_theme == 'pink' 
+                            on_active: root.set_color_theme('pink')
+                            on_release: root.popup_color_theme()
+                            allow_no_selection: False
+
+            BoxLayout:
+                size_hint_y: 0.24
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Label:
+                        text: 'Default angle unit:'
+                        text_size: (self.size[0]*0.9, self.size[1])
+                        color: (0, 0, 0, 1)
+                        font_size: dp(20)
+                        halign: 'left'
+                        valign: 'center'
+                        canvas.before:
+                            Color:
+                                rgba: (0.5, 0.5, 0.5, 1)
+                            Line:
+                                points: (7, self.y+self.height, self.width, self.y+self.height)
+                    BoxLayout:
+                        Label:
+                            text: 'Radians'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            halign: 'right'
+                            valign: 'center'
+                            text_size: (self.size[0]*0.9, self.size[1])
+                        CheckBox:
+                            size_hint_x: 1
+                            group: 'default_rad_deg'
+                            active: root.default_angle_unit == 'RAD'
+                            on_active: root.set_default_angle_unit('RAD')
+                            allow_no_selection: False
+
+                    BoxLayout:
+                        Label:
+                            text: 'Degrees'
+                            color: (0, 0, 0, 1)
+                            font_size: dp(16)
+                            halign: 'right'
+                            valign: 'center'
+                            text_size: (self.size[0]*0.9, self.size[1])
+                        CheckBox:
+                            group: 'default_rad_deg'
+                            active: root.default_angle_unit == 'DEG'
+                            on_active: root.set_default_angle_unit('DEG')
                             allow_no_selection: False
 
             MenuButton:
                 text: 'Easter eggs'
-                size_hint_y: None
-                height: dp(40)
-                # TODO Popup?
+                color: (0, 0, 0, 1)
+                font_size: dp(20)
+                size_hint_y: 0.08
+                on_release:
+                    root.popup_easter()
+                canvas.before:
+                    Color:
+                        rgba: (0.5, 0.5, 0.5, 1)
+                    Line:
+                        points: (7, self.y+self.height, self.width, self.y+self.height)
             MenuButton:
                 text: 'About'
-                size_hint_y: None
-                height: dp(40)
-                # TODO Popup?
-            MenuButton:
-                halign: 'center'
-                size_hint_y: None
-                height: dp(40)
-                on_release: 
-                    app.root.current = root.default_calculator
-                    root.manager.transition.direction = 'up'
-                Image:
-                    source: 'images/return.png'
-                    center: self.parent.center
-                    size: (self.parent.size[1]*0.5, self.parent.size[1]*0.5)
+                color: (0, 0, 0, 1)
+                font_size: dp(20)
+                size_hint_y: 0.08
+                on_release:
+                    root.popup_about()
+                canvas.before:
+                    Color:
+                        rgba: (0.5, 0.5, 0.5, 1)
+                    Line:
+                        points: (7, self.y+self.height, self.width, self.y+self.height)
